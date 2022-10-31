@@ -1,2 +1,5 @@
-package com.agripure.agripurebackend.entities;public class DetailPlants {
+package com.agripure.agripurebackend.entities;
+
+public class DetailPlants {
+
 }

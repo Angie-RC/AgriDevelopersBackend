@@ -1,2 +1,4 @@
-package com.agripure.agripurebackend.entities;public class plants {
+package com.agripure.agripurebackend.entities;
+
+public class Plants {
 }
