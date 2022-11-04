@@ -27,7 +27,6 @@ public class EventController {
         try {
             if (req.isPresent()) {
                 LocalDate date = req.get();
-                System.out.println(date);
                 List<Event> events = eventService.findAllByDate(date);
                 return new ResponseEntity<>(events, HttpStatus.OK);
             } else {
