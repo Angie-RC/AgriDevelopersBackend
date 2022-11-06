@@ -1,7 +1,7 @@
 package com.agripure.agripurebackend.service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 public interface CrudService<T> {
     T save(T t) throws Exception;
