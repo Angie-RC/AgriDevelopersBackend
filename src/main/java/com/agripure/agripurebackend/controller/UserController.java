@@ -3,8 +3,8 @@ package com.agripure.agripurebackend.controller;
 import com.agripure.agripurebackend.entities.Event;
 import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
+import com.agripure.agripurebackend.service.IPlantService;
 import com.agripure.agripurebackend.service.IUserService;
-import io.swagger.models.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,11 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UserController {
     private IUserService userService;
+    private IPlantService plantService;
 
-    public UserController(IUserService userService) {
+    public UserController(IUserService userService, IPlantService plantService) {
         this.userService = userService;
+        this.plantService = plantService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,6 +65,22 @@ public class UserController {
             } else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "{id}/plants", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Plant> insertPlantIntoUser(@PathVariable("id") Long id, @Valid @RequestBody Plant plant) {
+        try {
+            Optional<User> user = userService.getById(id);
+            if(user.isPresent()) {
+                user.get().getPlants().add(plant);
+                Plant newPlant = plantService.save(plant);
+                return ResponseEntity.status(HttpStatus.CREATED).body(newPlant);
+            }
+            else
+                return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -132,4 +150,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }
