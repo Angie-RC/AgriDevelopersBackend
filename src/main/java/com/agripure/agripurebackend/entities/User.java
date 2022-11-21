@@ -1,8 +1,10 @@
 package com.agripure.agripurebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,4 +29,6 @@ public class User implements Serializable {
     private Boolean premium;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Plant> plants;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Event> events;
 }

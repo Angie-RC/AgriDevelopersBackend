@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.controller;
 
+import com.agripure.agripurebackend.entities.Event;
 import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IUserService;
@@ -57,6 +58,23 @@ public class UserController {
             if (user.isPresent()) {
                 if (plants.size() > 0)
                     return new ResponseEntity<>(plants, HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "{id}/events", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Event>> findAllEventsByUserId(@PathVariable("id") Long id) {
+        try {
+            List<Event> events = userService.getEventsByUserId(id);
+            Optional<User> user = userService.getById(id);
+            if (user.isPresent()) {
+                if (events.size() > 0)
+                    return new ResponseEntity<>(events, HttpStatus.OK);
                 else
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else

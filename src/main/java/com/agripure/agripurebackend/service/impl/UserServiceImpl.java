@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.service.impl;
 
+import com.agripure.agripurebackend.entities.Event;
 import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.repository.IUserRepository;
@@ -54,5 +55,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<Plant> getPlantsByUserId(Long id) throws Exception {
         return userRepository.getPlantsByUserId(id);
+    }
+
+    @Override
+    public List<Event> getEventsByUserId(Long id) throws Exception {
+        return userRepository.getEventsByUserId(id);
     }
 }
