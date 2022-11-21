@@ -1,6 +1,7 @@
 package com.agripure.agripurebackend.service;
 
 import com.agripure.agripurebackend.entities.Event;
+import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.repository.IEventRepository;
 import com.agripure.agripurebackend.service.impl.EventServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class EventServiceImplTest {
     @Test
     public void saveTest() {
         LocalDate date = LocalDate.parse("2022-11-01");
-        Event event = new Event(1L, date, "Regar la parcela de lechugas");
+        Event event = new Event(1L, date, "Regar la parcela de lechugas", new User());
 
         given(eventRepository.save(event)).willReturn(event);
 
@@ -55,9 +56,9 @@ public class EventServiceImplTest {
     public void findAllByDate() throws Exception {
         LocalDate date = LocalDate.parse("2022-11-01");
         List<Event> events = new ArrayList<>();
-        events.add(new Event(1L, date, "Regar la parcela de lechugas"));
-        events.add(new Event(2L, date, "Regar la parcela de papas"));
-        events.add(new Event(3L, date, "Regar la parcela de tomates"));
+        events.add(new Event(1L, date, "Regar la parcela de lechugas", new User()));
+        events.add(new Event(2L, date, "Regar la parcela de papas", new User()));
+        events.add(new Event(3L, date, "Regar la parcela de tomates", new User()));
 
         given(eventRepository.findAllByDate(date)).willReturn(events);
 
