@@ -16,12 +16,15 @@ public class Plot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "latitude")
-    private Double latitude;
-    @Column(name = "longitude")
-    private Double longitude;
-    @Column(name = "size")
+    @Column(name = "plant", nullable = false)
+    private String plantName;
     private Long size;
-    @Column(name = "plant")
-    private String plant;
+    @Column(name = "quantity", nullable = false)
+    private Long quantity;
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+    @Column(name = "isPlot")
+    private Boolean isPlot;
 }
