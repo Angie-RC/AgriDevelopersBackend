@@ -15,17 +15,17 @@ import java.io.Serializable;
 public class PlotsWeather implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
     @Column(name = "wind", nullable = false)
-    public Integer wind;
+    private Integer wind;
     @Column(name = "humidity", nullable = false)
-    public Integer humidity;
+    private Integer humidity;
     @Column(name = "pressure", nullable = false)
-    public Long pressure;
+    private Long pressure;
     @Column(name = "thermal", nullable = false)
-    public Integer thermal;
+    private Integer thermal;
     @Column(name = "visibility", nullable = false)
-    public Integer visibility;
+    private Integer visibility;
     @Column(name = "dew_point", nullable = false)
-    public Integer dewPoint;
+    private Integer dewPoint;
 }

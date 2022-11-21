@@ -31,4 +31,6 @@ public class User implements Serializable {
     private List<Plant> plants;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Event> events;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Plot> plots;
 }

@@ -1,7 +1,9 @@
 package com.agripure.agripurebackend.controller;
 
 import com.agripure.agripurebackend.entities.Plot;
+import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IPlotService;
+import com.agripure.agripurebackend.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,11 @@ import java.util.Optional;
 @RequestMapping("api/plots")
 public class PlotController {
     private IPlotService plotService;
+    private IUserService userService;
 
-    public PlotController(IPlotService plotService) {
+    public PlotController(IPlotService plotService, IUserService userService) {
         this.plotService = plotService;
+        this.userService = userService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,11 +50,17 @@ public class PlotController {
         }
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Plot> insertPlot(@Valid @RequestBody Plot plot){
+    @PostMapping(value = "/{userId}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Plot> insertPlot(@PathVariable("userId") Long userId, @Valid @RequestBody Plot plot){
         try{
-            Plot plotNew = plotService.save(plot);
-            return ResponseEntity.status(HttpStatus.CREATED).body(plotNew);
+            Optional<User> user = userService.getById(userId);
+            if(user.isPresent()) {
+                plot.setUser(user.get());
+                Plot newPlot = plotService.save(plot);
+                return ResponseEntity.status(HttpStatus.CREATED).body(newPlot);
+            }
+            else
+                return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
