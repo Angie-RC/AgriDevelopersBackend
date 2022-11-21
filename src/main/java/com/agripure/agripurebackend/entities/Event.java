@@ -1,10 +1,10 @@
 package com.agripure.agripurebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "event")
@@ -22,4 +22,7 @@ public class Event {
     private LocalDate date;
     @Column(name = "description", nullable = false, length = 200)
     private String description;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 }
