@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.repository;
 
+import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,6 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     @Query("SELECT u FROM User u WHERE u.premium=TRUE")
     List<User> findByPremium(Boolean premium);
+    @Query("SELECT u.plants FROM User u WHERE u.id = ?1")
+    List<Plant> getPlantsByUserId(Long id);
 }

@@ -34,7 +34,7 @@ public class PlantServiceImplTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3);
+                "information about fertilization and fumigation", 2,3, new ArrayList<>());
         given(plantRepository.save(plant)).willReturn(plant);
 
         Plant savePlant = null;
@@ -63,25 +63,25 @@ public class PlantServiceImplTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3));
+                "information about fertilization and fumigation", 2,3, new ArrayList<>()));
         list.add(new Plant(2L, "Cualiflower", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 false, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,1));
+                "information about fertilization and fumigation", 2,1, new ArrayList<>()));
         list.add(new Plant(3L, "Potatoe", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 true, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,1));
+                "information about fertilization and fumigation", 2,1, new ArrayList<>()));
         list.add(new Plant(4L, "Lemon", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 false, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 4F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,4));
+                "information about fertilization and fumigation", 2,4, new ArrayList<>()));
 
         given(plantRepository.findAll()).willReturn(list);
         List<Plant> listExpected = plantService.getAll();
@@ -96,7 +96,7 @@ public class PlantServiceImplTest {
                 "information about the land type", 4F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,4);
+                "information about fertilization and fumigation", 2,4, new ArrayList<>());
 
         given(plantRepository.findById(id)).willReturn(Optional.of(plant));
         Optional<Plant> plantExpected = plantService.getById(id);
@@ -113,7 +113,7 @@ public class PlantServiceImplTest {
                 "information about the land type", 4F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,4);
+                "information about fertilization and fumigation", 2,4, new ArrayList<>());
 
         given(plantRepository.findByName(name)).willReturn(plant);
         Plant plantExpected = plantService.findByName(name);

@@ -27,7 +27,7 @@ public class UserServiceImplTest {
 
     @Test
     public void saveTest() {
-        User user = new User(1L, "example", "example123@gmail.com", "example", true);
+        User user = new User(1L, "example", "example123@gmail.com", "example", true, new ArrayList<>());
         given(userRepository.save(user)).willReturn(user);
 
         User savedUser = null;
@@ -49,9 +49,9 @@ public class UserServiceImplTest {
     @Test
     public void getAllTest() throws Exception {
         List<User> users = new ArrayList<>();
-        users.add(new User(1L, "admin123", "example123@gmail.com", "admin123", true));
-        users.add(new User(2L, "admin456", "example456@gmail.com", "admin456", false));
-        users.add(new User(3L, "admin789", "example789@gmail.com", "admin789", false));
+        users.add(new User(1L, "admin123", "example123@gmail.com", "admin123", true, new ArrayList<>()));
+        users.add(new User(2L, "admin456", "example456@gmail.com", "admin456", false, new ArrayList<>()));
+        users.add(new User(3L, "admin789", "example789@gmail.com", "admin789", false, new ArrayList<>()));
 
         given(userRepository.findAll()).willReturn(users);
         List<User> usersExpected = userService.getAll();

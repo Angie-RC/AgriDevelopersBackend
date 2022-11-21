@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.controller;
 
+import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IUserService;
 import io.swagger.models.Response;
@@ -48,7 +49,25 @@ public class UserController {
         }
     }
 
-    public ResponseEntity<User>findByEmail(@RequestParam(name = "email")String email) {
+    @GetMapping(value = "/{id}/plants", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Plant>>findAllPlantsByUserId(@PathVariable("id") Long id) {
+        try {
+            List<Plant> plants = userService.getPlantsByUserId(id);
+            Optional<User> user = userService.getById(id);
+            if (user.isPresent()) {
+                if (plants.size() > 0)
+                    return new ResponseEntity<>(plants, HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> findByEmail(@PathVariable("email") String email) {
         try {
             Optional<User> user = userService.findByEmail(email);
             if(!user.isPresent())
@@ -61,9 +80,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/searchPremium", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>>findByPremium(@RequestParam(name = "premium")Boolean premium) {
+    public ResponseEntity<List<User>>findByPremium() {
         try {
-            List<User> users = userService.findByPremium(premium);
+            List<User> users = userService.findByPremium(true);
             if(users.size() > 0)
                 return new ResponseEntity<>(users, HttpStatus.OK);
             else
