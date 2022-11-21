@@ -5,11 +5,9 @@ import com.agripure.agripurebackend.service.IPlotService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +46,26 @@ public class PlotController {
         }
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Plot> insertPlot(@Valid @RequestBody Plot plot){
+        try{
+            Plot plotNew = plotService.save(plot);
+            return ResponseEntity.status(HttpStatus.CREATED).body(plotNew);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Plot> deletePlot (@PathVariable("id") Long id){
+        try{
+            Optional<Plot> plotDelete = plotService.getById(id);
+            if(!plotDelete.isPresent())
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            plotService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
