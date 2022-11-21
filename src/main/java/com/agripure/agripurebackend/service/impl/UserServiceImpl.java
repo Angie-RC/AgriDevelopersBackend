@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.service.impl;
 
+import com.agripure.agripurebackend.entities.Plant;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.repository.IUserRepository;
 import com.agripure.agripurebackend.service.IUserService;
@@ -48,5 +49,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> findByPremium(Boolean premium) throws Exception {
         return userRepository.findByPremium(premium);
+    }
+
+    @Override
+    public List<Plant> getPlantsByUserId(Long id) throws Exception {
+        return userRepository.getPlantsByUserId(id);
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,4 +25,6 @@ public class User implements Serializable {
     private String password;
     @Column(name = "is_premium", nullable = false)
     private Boolean premium;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Plant> plants;
 }

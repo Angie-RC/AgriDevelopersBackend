@@ -40,25 +40,25 @@ public class PlantControllerTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3));
+                "information about fertilization and fumigation", 2,3, new ArrayList<>()));
         plantList.add(new Plant(2L, "Cualiflower", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 false, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,1));
+                "information about fertilization and fumigation", 2,1, new ArrayList<>()));
         plantList.add(new Plant(3L, "Potatoe", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 true, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,1));
+                "information about fertilization and fumigation", 2,1, new ArrayList<>()));
         plantList.add(new Plant(4L, "Lemon", "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bright_red_tomato_and_cross_section02.jpg/640px-Bright_red_tomato_and_cross_section02.jpg",
                 false, "Brassica oleracea var. botrytis", "Brassica oleracea",
                 "information about the land type", 4F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,4));
+                "information about fertilization and fumigation", 2,4, new ArrayList<>()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PlantControllerTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3);
+                "information about fertilization and fumigation", 2,3, new ArrayList<>());
         given(plantService.save(plant)).willReturn(plant);
         mockMvc.perform(post("/api/plants", plant).content(asJsonString(plant))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ public class PlantControllerTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3);
+                "information about fertilization and fumigation", 2,3, new ArrayList<>());
         given(plantService.getById(id)).willReturn(Optional.of(plant));
         mockMvc.perform(put("/api/plants/{id}", id).content(asJsonString(plant))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -104,7 +104,7 @@ public class PlantControllerTest {
                 "information about the land type", 5.5F, "information about distance between plants",
                 "40-60 cm", "information about ideal depth", "0.5-1.5 m",
                 "Information about the weather conditions", "15°-18° C",
-                "information about fertilization and fumigation", 2,3);
+                "information about fertilization and fumigation", 2,3, new ArrayList<>());
         given(plantService.getById(id)).willReturn(Optional.of(plant));
         mockMvc.perform(delete("/api/plants/{id}", id))
                 .andExpect(status().isOk());
