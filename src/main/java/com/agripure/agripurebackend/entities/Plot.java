@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,7 @@ public class Plot implements Serializable {
     private Double longitude;
     @Column(name = "isPlot")
     private Boolean isPlot;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private User user;
 }

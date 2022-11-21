@@ -2,6 +2,7 @@ package com.agripure.agripurebackend.controller;
 
 import com.agripure.agripurebackend.entities.Event;
 import com.agripure.agripurebackend.entities.Plant;
+import com.agripure.agripurebackend.entities.Plot;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IPlantService;
 import com.agripure.agripurebackend.service.IUserService;
@@ -98,6 +99,23 @@ public class UserController {
             } else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping(value = "{id}/plots", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Plot>> findAllPlotsByUserId(@PathVariable("id") Long id) {
+        try {
+            List<Plot> plots = userService.getPlotsByUserId(id);
+            Optional<User> user = userService.getById(id);
+            if(user.isPresent()) {
+                if (plots.size() > 0)
+                    return new ResponseEntity<>(plots, HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
