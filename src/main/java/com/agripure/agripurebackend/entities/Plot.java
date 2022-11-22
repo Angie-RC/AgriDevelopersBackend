@@ -26,8 +26,6 @@ public class Plot implements Serializable {
     private Double latitude;
     @Column(name = "longitude", nullable = false)
     private Double longitude;
-    @Column(name = "isPlot")
-    private Boolean isPlot;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;

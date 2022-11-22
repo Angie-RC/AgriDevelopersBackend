@@ -27,6 +27,10 @@ public class User implements Serializable {
     private String password;
     @Column(name = "is_premium", nullable = false)
     private Boolean premium;
+    @Column(name="country", nullable = false)
+    private String country;
+    @Column(name = "city", nullable = false)
+    private String city;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Plant> plants;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
