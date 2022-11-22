@@ -1,6 +1,6 @@
 Feature: Plant Testing
   Background:
-    Given The Endpoint "http://localhost:%d/api/plants" is available
+    Given The Endpoint "http://localhost:8080/api/plants" is available
 
   @post-plant
   Scenario: Add Plant

@@ -6,6 +6,7 @@ import com.agripure.agripurebackend.entities.Plot;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IPlantService;
 import com.agripure.agripurebackend.service.IUserService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/users")
+@Api(tags = "Users", value = "Web Service RESTful - Users")
 public class UserController {
     private IUserService userService;
     private IPlantService plantService;
