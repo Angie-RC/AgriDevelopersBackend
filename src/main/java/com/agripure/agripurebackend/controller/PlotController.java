@@ -4,6 +4,7 @@ import com.agripure.agripurebackend.entities.Plot;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IPlotService;
 import com.agripure.agripurebackend.service.IUserService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("api/plots")
+@Api(tags = "Plots", value = "Web Service RESTful - Plots")
 public class PlotController {
     private IPlotService plotService;
     private IUserService userService;
