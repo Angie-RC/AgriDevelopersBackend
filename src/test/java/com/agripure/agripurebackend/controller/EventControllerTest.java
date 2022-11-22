@@ -1,6 +1,7 @@
 package com.agripure.agripurebackend.controller;
 
 import com.agripure.agripurebackend.entities.Event;
+import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.impl.EventServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -36,10 +37,10 @@ public class EventControllerTest {
     @BeforeEach
     void setUp() {
         eventList = new ArrayList<>();
-        eventList.add(new Event(1L, LocalDate.parse("2022-11-01"), "Regar la parcela de lechugas"));
-        eventList.add(new Event(2L, LocalDate.parse("2022-11-01"), "Regar la parcela de papas"));
-        eventList.add(new Event(3L, LocalDate.parse("2022-11-18"), "Fertilizar la parcela de tomates"));
-        eventList.add(new Event(3L, LocalDate.parse("2022-11-18"), "Fumigar la parcela de camotes"));
+        eventList.add(new Event(1L, LocalDate.parse("2022-11-01"), "Regar la parcela de lechugas", new User()));
+        eventList.add(new Event(2L, LocalDate.parse("2022-11-01"), "Regar la parcela de papas", new User()));
+        eventList.add(new Event(3L, LocalDate.parse("2022-11-18"), "Fertilizar la parcela de tomates", new User()));
+        eventList.add(new Event(3L, LocalDate.parse("2022-11-18"), "Fumigar la parcela de camotes", new User()));
     }
     @Test
     void findAllByDateTest() throws Exception {

@@ -1,5 +1,6 @@
 package com.agripure.agripurebackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="plants")
@@ -49,4 +51,7 @@ public class Plant implements Serializable {
     private Integer intervale_fert;
     @Column(name="intervale_fumig", nullable = false)
     private Integer intervale_fumig;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "plants", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> users;
 }
