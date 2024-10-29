@@ -1,5 +1,8 @@
 package step;
 
+import com.agripure.agripurebackend.entities.Event;
+import com.agripure.agripurebackend.entities.Plant;
+import com.agripure.agripurebackend.entities.Plot;
 import com.agripure.agripurebackend.entities.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+@Component
 public class UserStepDefinitions {
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -27,8 +33,8 @@ public class UserStepDefinitions {
     }
 
     @When("A user request is sent with values {string}, {string}, {string}, {string}")
-    public void aUserRequestIsSentWithValuesTrue(String username, String email, String password, Boolean premium) {
-        User user = new User(0L, username, email, password, true);
+    public void aUserRequestIsSentWithValuesTrue(String username, String email, String password, Boolean premium, String country, String city, List<Plant> plants, List<Event> events, List<Plot> plots) {
+        User user = new User(0L, username, email, password, true, country,city,plants,events,plots);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 

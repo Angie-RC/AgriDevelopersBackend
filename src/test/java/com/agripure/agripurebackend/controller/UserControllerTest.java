@@ -32,10 +32,10 @@ public class UserControllerTest {
     @BeforeEach
     void setUp() {
         userList = new ArrayList<>();
-        userList.add(new User(1L, "admin123", "example123@gmail.com", "admin123", true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        userList.add(new User(2L, "admin456", "example456@gmail.com", "admin456", false, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        userList.add(new User(3L, "admin789", "example789@gmail.com", "admin789", false, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        userList.add(new User(4L, "admin000", "example000@gmail.com", "admin000", true, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userList.add(new User(1L, "admin123", "example123@gmail.com", "123",true,"country","citry",new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userList.add(new User(2L, "admin456", "example456@gmail.com", "admin456", false,"country","citry", new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userList.add(new User(3L, "admin789", "example789@gmail.com", "admin789", false, "country","citry",new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userList.add(new User(4L, "admin000", "example000@gmail.com", "admin000", true,"country","citry", new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class UserControllerTest {
 
     @Test
     void insertUserTest() throws Exception {
-        User user = new User(100L, "admin", "example@gmail.com", "admin", false, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        User user = new User(100L, "admin", "example@gmail.com", "admin", false, "country","citry",new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         given(userService.save(user)).willReturn(user);
         mockMvc.perform(post("/api/users", user).content(asJsonString(user))
                 .contentType(MediaType.APPLICATION_JSON)

@@ -4,10 +4,9 @@ import com.agripure.agripurebackend.entities.Event;
 import com.agripure.agripurebackend.entities.User;
 import com.agripure.agripurebackend.service.IEventService;
 import com.agripure.agripurebackend.service.IUserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +21,6 @@ import java.util.Optional;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/events")
-@Api(tags = "Events", value = "Web Service RESTful - Events")
 public class EventController {
     private final IEventService eventService;
     private final IUserService userService;
@@ -32,11 +30,11 @@ public class EventController {
         this.userService = userService;
     }
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "List Events By Date", notes = "Method for list all Events by Date")
+    @Operation(summary = "List Events By Date", description = "Method for list all Events by Date")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Events found"),
-            @ApiResponse(code = 404, message = "Events not found"),
-            @ApiResponse(code = 501, message = "Internal Server Error")
+            @ApiResponse(responseCode = "201", description = "Events found"),
+            @ApiResponse(responseCode = "404", description = "Events not found"),
+            @ApiResponse(responseCode = "501", description = "Internal Server Error")
     })
     public ResponseEntity<List<Event>> findAllByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Optional<LocalDate> req) {
         try {
@@ -54,11 +52,11 @@ public class EventController {
     }
 
     @PostMapping(value = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Add Events", notes = "Method for add new events")
+    @Operation(summary = "Add Events", description = "Method for add new events")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Events created"),
-            @ApiResponse(code = 404, message = "Plants not created"),
-            @ApiResponse(code = 501, message = "Internal Server Error")
+            @ApiResponse(responseCode = "201", description = "Events created"),
+            @ApiResponse(responseCode = "404", description = "Plants not created"),
+            @ApiResponse(responseCode = "501", description = "Internal Server Error")
     })
     public ResponseEntity<Event> insertEvent(@PathVariable("userId") Long userId, @Valid @RequestBody Event event){
         try{
@@ -76,11 +74,11 @@ public class EventController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Delete Event by Id", notes = "Method for delete event")
+    @Operation(summary = "Delete Event by Id", description = "Method for delete event")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Event deleted"),
-            @ApiResponse(code = 404, message = "Event not found"),
-            @ApiResponse(code = 501, message = "Internal Server Error")
+            @ApiResponse(responseCode = "201", description = "Event deleted"),
+            @ApiResponse(responseCode = "404", description = "Event not found"),
+            @ApiResponse(responseCode = "501", description = "Internal Server Error")
     })
     public ResponseEntity<Event> deleteEvent (@PathVariable("id") Long id){
         try{
